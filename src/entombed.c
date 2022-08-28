@@ -106,6 +106,7 @@
 #define STARTING_MAKEBREAK 2
 #define STARTING_LIVES 3
 
+#import "msputils.h"
 
 enum {
   IMG_TITLE,
@@ -1574,7 +1575,7 @@ void setup(int argc, char * argv[])
       /* Load image file: */
 
 #ifndef EMBEDDED
-      image = IMG_Load(image_names[i]);
+      image = IMG_Load(getBundlePathSubdirAndFile("Contents/Resources/Data", image_names[i]));
 
       if (image == NULL)
         {
@@ -1621,7 +1622,7 @@ void setup(int argc, char * argv[])
 	    
       for (i = 0; i < NUM_SOUNDS; i++)
         {
-          sounds[i] = Mix_LoadWAV(sound_names[i]);
+          sounds[i] = Mix_LoadWAV(getBundlePathSubdirAndFile("Contents/Resources/Data", sound_names[i]));
           if (sounds[i] == NULL)
             {
               fprintf(stderr,
@@ -1638,7 +1639,7 @@ void setup(int argc, char * argv[])
 
       for (i = 0; i < NUM_MUSICS; i++)
         {
-          musics[i] = Mix_LoadMUS(music_names[i]);
+          musics[i] = Mix_LoadMUS(getBundlePathSubdirAndFile("Contents/Resources/Data", music_names[i]));
           if (musics[i] == NULL)
             {
               fprintf(stderr,
@@ -1717,7 +1718,7 @@ void seticon(void)
 
   /* Load icon into a surface: */
 
-  icon = IMG_Load(DATA_PREFIX "images/icon.png");
+  icon = IMG_Load(getBundlePathSubdirAndFile("Contents/Resources/Data", "images/icon.png"));
   if (icon == NULL)
     {
       fprintf(stderr,

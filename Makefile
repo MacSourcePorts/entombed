@@ -10,15 +10,15 @@
 # User-definable stuff:
 
 BIN_PREFIX=/usr/local/bin/
-DATA_PREFIX=/usr/local/share/entombed/
+DATA_PREFIX=
 
 
 # Defaults for Linux:
 
 TARGET=entombed
 TARGET_DEF=LINUX
-SDL_CFLAGS := $(shell sdl-config --cflags)
-SDL_LDFLAGS := $(shell sdl-config --libs)
+# SDL_CFLAGS := $(shell sdl-config --cflags)
+# SDL_LDFLAGS := $(shell sdl-config --libs)
 CC=gcc
 
 # Sound-related definitions:
@@ -30,7 +30,7 @@ SIZEFLAG=__NOHALFSIZE
 
 # Stuff we pass to the compiler:
 
-CFLAGS=-Wall -D$(SIZEFLAG) $(SDL_CFLAGS) \
+CFLAGS=-arch $(ARCH) -Wall -D$(SIZEFLAG) $(SDL_CFLAGS) \
 	-DDATA_PREFIX=\"$(DATA_PREFIX)\" -D$(NOSOUNDFLAG) -D$(TARGET_DEF)
 SDL_LIB=$(MIXER) $(IMAGE) $(SDL_LDFLAGS)
 
@@ -95,7 +95,7 @@ clean:
 # Main executable:
 
 $(TARGET):	obj/entombed.o
-	$(CC) $(CFLAGS) obj/entombed.o -o $(TARGET) $(SDL_LIB) -lm
+	$(CC) $(CFLAGS) obj/entombed.o src/msputils.m -o $(TARGET) $(SDL_LIB) -lm
 
 
 # Main object:
